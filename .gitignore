@@ -1,0 +1,10 @@
+.env
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+tokenomics.jsonl
+agent_decisions.jsonl
+deployment-package/
+*.zip
+lambda-env.json

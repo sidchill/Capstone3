@@ -1,0 +1,212 @@
+
+========================================================================
+[SQL] How many active projects do we have?
+Route: sql
+Answer: ## Active Projects
+
+We currently have **4 active projects**.
+
+---
+
+**Source:** SQL Agent
+**Query Used:**
+```sql
+SELECT COUNT(*) AS active_project_count
+FROM projects
+WHERE status = 'active';
+```
+SQL validation: PASSED
+
+========================================================================
+[SQL] What is the total budget across all projects?
+Route: sql
+Answer: ## Total Budget Across All Projects
+
+The total budget across all projects is **$930,000**.
+
+---
+
+**Source:**
+- **Agent:** SQL Agent
+- **Source Query:** `SELECT SUM(budget) AS total_budget FROM projects;`
+SQL validation: PASSED
+
+========================================================================
+[Retrieval] What does the remote work policy say about revoking arrangements?
+Route: retrieval
+Answer: ## Remote Work Policy: Revoking Arrangements
+
+According to the **Retrieval Agent**, the remote work policy outlines the following regarding revoking arrangements:
+
+- Remote work arrangements **may be modified or revoked at any time** if an employee is not meeting expectations related to:
+  - Availability
+  - Communication
+  - Performance
+
+### Process Before Revoking:
+Before revoking an arrangement, managers are required to:
+1. **Document any concerns**
+2. **Provide a 30-day improvement window**
+
+### Important Exception:
+> The 30-day improvement window **does NOT apply** in cases involving a **security policy violation** — the arrangement can be revoked immediately in such cases.
+
+---
+
+**Source:** Retrieval Agent — *remote-work-policy.pdf* (Sources 1 & 2)
+SQL validation: not run
+
+========================================================================
+[Retrieval] Describe the cloud migration approach.
+Route: retrieval
+Answer: ## Cloud Migration Approach
+
+Based on the retrieved information, Acme Consulting's cloud migration approach is structured around **four key phases**:
+
+---
+
+### Phase 1: Discovery and Assessment
+This initial phase lasts **two to four weeks** and focuses on inventorying existing systems, data volumes, and integration points. Key deliverables include a system inventory, data classification summary, and a preliminary risk register. An important guiding principle here is that **integration complexity should be weighted heavily** — a small database with many downstream integrations can be more challenging to migrate than a large database with few connections.
+
+---
+
+### Phase 2: Migration Strategy Selection
+Three strategies are available, chosen based on downtime tolerance and system complexity:
+- **Lift-and-shift** – Fastest option, but carries forward existing schema problems
+- **Re-platform** – Modernizes the schema during migration; most common for clients with data quality issues
+- **Parallel-run** – Both systems operate simultaneously; recommended when downtime tolerance is near zero
+
+---
+
+### Phase 3: Execution
+Migrations are executed in **batches** (never as a single cutover), with validation checkpoints between each stage. Every batch is validated against source-system checksums, rollback plans must exist for every batch, and **daily client status updates** are recommended throughout.
+
+---
+
+### Phase 4: Validation and Cutover
+A full reconciliation between source and target systems is performed, covering record counts, checksums, and functional testing. Critically, known data quality issues should be **remediated before cutover**, as fixing them post-migration is typically more expensive.
+
+---
+
+**Source:** This information was provided by the **Retrieval Agent**, sourced from **`cloud-migration-playbook.pdf`** and corroborated by **`q2-2026-client-report.pdf`**.
+SQL validation: not run
+
+========================================================================
+[Both] How many active projects do we have, and what does the remote work policy say?
+Route: both
+Answer: ## Answer
+
+Here is a combined answer to both parts of your question, drawing from multiple agents:
+
+---
+
+### 📊 Active Projects
+
+There are **4 active projects** across the organization.
+
+> *Source: **SQL Agent** — queried the `projects` table directly (`WHERE status = 'active'`)*
+
+*(Note: The Retrieval Agent referenced only one active client engagement from a quarterly report, but this reflects a single documented engagement, not the full organizational count.)*
+
+---
+
+### 🏠 Remote Work Policy Highlights
+
+The remote work policy covers the following key areas:
+
+- **Eligibility:** Employees must have completed their **90-day probationary period** and not require regular physical presence at client sites. Fully remote new hires are exempt if documented in their offer letter.
+- **Core Hours:** Employees must be available **10:00 AM – 3:00 PM** in their local time zone.
+- **Equipment:** The company provides a **laptop, monitor, and VPN access**. All data must remain on company-issued devices.
+- **Home Office Stipend:** Up to **$500/year** for office equipment, submitted by **December 15**. Unused amounts do **not** roll over.
+- **International Work:** Permitted for up to **20 business days per year** with manager and IT Security approval.
+- **Performance Review:** Remote arrangements are reviewed annually and can be revoked with a **30-day improvement window**, except in cases of security violations.
+
+> *Source: **Retrieval Agent** — pulled from `remote-work-policy.pdf` (Sources 1 & 2)*
+
+---
+
+### Summary of Sources
+
+| Information | Agent | Source |
+|---|---|---|
+| Number of active projects | SQL Agent | `projects` table (SQL query) |
+| Remote work policy details | Retrieval Agent | `remote-work-policy.pdf` |
+SQL validation: PASSED
+
+========================================================================
+[Both] What is the total invoice amount, and describe the cloud migration approach.
+Route: both
+Answer: ## Answer
+
+### Total Invoice Amount: **$370,500**
+
+This figure was provided by the **SQL Agent**, which queried the invoices database directly:
+`SELECT SUM(amount) AS total_invoice_amount FROM invoices;`
+*(Source: SQL query against the `invoices` table)*
+
+The **Retrieval Agent** was unable to find any invoice information within the available documents, confirming that billing data resides in the database rather than in the document repository.
+
+---
+
+### Cloud Migration Approach
+
+The **Retrieval Agent** provided a detailed description of the cloud migration approach, sourced from the **`cloud-migration-playbook.pdf`**. It consists of four phases:
+
+1. **Discovery and Assessment** *(2–4 weeks)*: Inventories existing systems, data volumes, and integration points, resulting in a system inventory, data classification summary, and preliminary risk register.
+
+2. **Migration Strategy Selection**: One of three strategies is chosen based on downtime tolerance and system complexity:
+   - **Lift-and-shift** – Fastest option, but carries forward existing schema issues.
+   - **Re-platform** – Modernizes the schema during migration; most common for clients with data quality issues.
+   - **Parallel-run** – Both systems operate simultaneously; recommended for near-zero downtime tolerance.
+
+3. **Execution**: Performed in batches with validation checkpoints, source-system checksum verification, rollback plans for every batch, and daily client status updates.
+
+4. **Validation and Cutover**: Full reconciliation covering record counts, checksums, and functional testing of downstream systems, with known data quality issues remediated before cutover.
+
+*(Source: `cloud-migration-playbook.pdf` via Retrieval Agent)*
+
+---
+
+### Summary of Sources
+| Information | Agent | Source |
+|---|---|---|
+| Total Invoice Amount ($370,500) | SQL Agent | `invoices` table (SQL query) |
+| Cloud Migration Approach | Retrieval Agent | `cloud-migration-playbook.pdf` |
+SQL validation: PASSED
+
+========================================================================
+[Unanswerable] What is our current stock price?
+Route: retrieval
+Answer: ## Stock Price Inquiry
+
+Based on the available information, **I am unable to provide the current stock price.**
+
+The **Retrieval Agent** searched through the available document sources and confirmed that none of them contain stock price information. The sources consulted were:
+
+- 📄 `retail-supply-chain-case-study.pdf`
+- 📄 `q2-2026-client-report.pdf`
+- 📄 `cloud-migration-playbook.pdf`
+
+These documents only cover topics related to a **retail supply chain case study**, a **quarterly engagement report**, and a **cloud migration playbook** — none of which include stock price data.
+
+### Recommendations:
+To find the current stock price, consider checking:
+- A financial platform such as **Bloomberg, Yahoo Finance, or Google Finance**
+- Your company's **investor relations page**
+- A **real-time market data tool** integrated into your systems
+SQL validation: not run
+
+========================================================================
+[Unsafe SQL] DROP TABLE projects
+Route: validator-only (not sent to the database)
+Answer: Only SELECT queries are permitted.
+SQL validation: BLOCKED
+
+========================================================================
+Recent token summary:
+{
+  "query_count": 10,
+  "input_tokens": 24121,
+  "output_tokens": 5027,
+  "cost_usd": 0.1625448
+}

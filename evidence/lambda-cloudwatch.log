@@ -1,0 +1,127 @@
+2026-10-18T23:26:25.666000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be START RequestId: d972b24d-14f9-40f6-8054-be5085ad48da Version: $LATEST
+2026-10-18T23:26:28.178000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be [INFO]	2026-10-18T23:26:28.178Z	d972b24d-14f9-40f6-8054-be5085ad48da	Found credentials in environment variables.
+2026-10-18T23:26:28.329000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be [WARNING]	2026-10-18T23:26:28.329Z	d972b24d-14f9-40f6-8054-be5085ad48da	POST https://search-vector-search-lesson-5gfarqzpvlwracjxqbt2tpfv5e.us-east-1.es.amazonaws.com:443/documents/_search [status:403 request:0.132s]
+2026-10-18T23:26:28.332000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be [ERROR]	2026-10-18T23:26:28.330Z	d972b24d-14f9-40f6-8054-be5085ad48da	Lambda handler failed
+Traceback (most recent call last):
+  File "/var/task/lambda_handler.py", line 34, in handler
+    result = run_traced_query(orchestrator, question.strip())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/tokenomics_logger.py", line 68, in run_traced_query
+    result = orchestrator.invoke(initial_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/langgraph/pregel/main.py", line 4001, in invoke
+    for chunk in self.stream(
+  File "/var/task/langgraph/pregel/main.py", line 3058, in stream
+    for _ in runner.tick(
+  File "/var/task/langgraph/pregel/_runner.py", line 208, in tick
+    run_with_retry(
+  File "/var/task/langgraph/pregel/_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/langgraph/_internal/_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/langgraph/_internal/_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/orchestrator.py", line 56, in call_retrieval_agent
+    result = call_tool("search_documents", {"query": state["question"]})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/tool_registry.py", line 36, in call_tool
+    return run_retrieval_agent(arguments["query"])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/agents/retrieval_agent.py", line 168, in run_retrieval_agent
+    result = retrieval_agent(question)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/agents/retrieval_agent.py", line 146, in retrieval_agent
+    chunks = retrieve(question)
+             ^^^^^^^^^^^^^^^^^^
+  File "/var/task/agents/retrieval_agent.py", line 61, in retrieve
+    response = client.search(
+               ^^^^^^^^^^^^^^
+  File "/var/task/opensearchpy/client/utils.py", line 176, in _wrapped
+    return func(*args, params=params, headers=headers, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/opensearchpy/client/__init__.py", line 2440, in search
+    return self.transport.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/opensearchpy/transport.py", line 457, in perform_request
+    raise e
+  File "/var/task/opensearchpy/transport.py", line 418, in perform_request
+    status, headers_response, data = connection.perform_request(
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/opensearchpy/connection/http_requests.py", line 242, in perform_request
+    self._raise_error(
+  File "/var/task/opensearchpy/connection/base.py", line 315, in _raise_error
+    raise HTTP_EXCEPTIONS.get(status_code, TransportError)(
+opensearchpy.exceptions.AuthorizationException: AuthorizationException(403, '{"Message":"User: arn:aws:sts::498713635291:assumed-role/orchestrator-lambda-role-sc/multi-agent-orchestrator is not authorized to perform: es:ESHttpPost because no identity-based policy allows the es:ESHttpPost action"}')
+During task with name 'retrieval_agent' and id '8eb174d1-d6ee-1424-4991-e1b0cc2772b4'
+2026-10-18T23:26:28.333000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be END RequestId: d972b24d-14f9-40f6-8054-be5085ad48da
+2026-10-18T23:26:28.333000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be REPORT RequestId: d972b24d-14f9-40f6-8054-be5085ad48da	Duration: 2667.36 ms	Billed Duration: 2668 ms	Memory Size: 512 MB	Max Memory Used: 287 MB
+2026-10-18T23:29:08.173000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be START RequestId: ca8eb7da-7b7e-4064-88ca-3e02dbae28fd Version: $LATEST
+2026-10-18T23:29:10.560000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be [INFO]	2026-10-18T23:29:10.560Z	ca8eb7da-7b7e-4064-88ca-3e02dbae28fd	Found credentials in environment variables.
+2026-10-18T23:29:10.698000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be [WARNING]	2026-10-18T23:29:10.698Z	ca8eb7da-7b7e-4064-88ca-3e02dbae28fd	POST https://search-vector-search-lesson-5gfarqzpvlwracjxqbt2tpfv5e.us-east-1.es.amazonaws.com:443/documents/_search [status:403 request:0.101s]
+2026-10-18T23:29:10.700000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be [ERROR]	2026-10-18T23:29:10.698Z	ca8eb7da-7b7e-4064-88ca-3e02dbae28fd	Lambda handler failed
+Traceback (most recent call last):
+  File "/var/task/lambda_handler.py", line 34, in handler
+    result = run_traced_query(orchestrator, question.strip())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/tokenomics_logger.py", line 68, in run_traced_query
+    result = orchestrator.invoke(initial_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/langgraph/pregel/main.py", line 4001, in invoke
+    for chunk in self.stream(
+  File "/var/task/langgraph/pregel/main.py", line 3058, in stream
+    for _ in runner.tick(
+  File "/var/task/langgraph/pregel/_runner.py", line 208, in tick
+    run_with_retry(
+  File "/var/task/langgraph/pregel/_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/langgraph/_internal/_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/langgraph/_internal/_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/orchestrator.py", line 56, in call_retrieval_agent
+    result = call_tool("search_documents", {"query": state["question"]})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/tool_registry.py", line 36, in call_tool
+    return run_retrieval_agent(arguments["query"])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/agents/retrieval_agent.py", line 168, in run_retrieval_agent
+    result = retrieval_agent(question)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/agents/retrieval_agent.py", line 146, in retrieval_agent
+    chunks = retrieve(question)
+             ^^^^^^^^^^^^^^^^^^
+  File "/var/task/agents/retrieval_agent.py", line 61, in retrieve
+    response = client.search(
+               ^^^^^^^^^^^^^^
+  File "/var/task/opensearchpy/client/utils.py", line 176, in _wrapped
+    return func(*args, params=params, headers=headers, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/opensearchpy/client/__init__.py", line 2440, in search
+    return self.transport.perform_request(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/opensearchpy/transport.py", line 457, in perform_request
+    raise e
+  File "/var/task/opensearchpy/transport.py", line 418, in perform_request
+    status, headers_response, data = connection.perform_request(
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/task/opensearchpy/connection/http_requests.py", line 242, in perform_request
+    self._raise_error(
+  File "/var/task/opensearchpy/connection/base.py", line 315, in _raise_error
+    raise HTTP_EXCEPTIONS.get(status_code, TransportError)(
+opensearchpy.exceptions.AuthorizationException: AuthorizationException(403, '{"Message":"User: arn:aws:sts::498713635291:assumed-role/orchestrator-lambda-role-sc/multi-agent-orchestrator is not authorized to perform: es:ESHttpPost because no identity-based policy allows the es:ESHttpPost action"}')
+During task with name 'retrieval_agent' and id 'cd851c6c-e188-1746-be08-7524e1632e71'
+2026-10-18T23:29:10.702000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be END RequestId: ca8eb7da-7b7e-4064-88ca-3e02dbae28fd
+2026-10-18T23:29:10.702000+00:00 2026/10/18/[$LATEST]acbd0ea4e7c542e0abbd36ca60d814be REPORT RequestId: ca8eb7da-7b7e-4064-88ca-3e02dbae28fd	Duration: 2527.92 ms	Billed Duration: 2528 ms	Memory Size: 512 MB	Max Memory Used: 287 MB
+2026-10-18T23:34:20.017000+00:00 2026/10/18/[$LATEST]a11a726e1fcd447bb82182b43f0ba9b7 INIT_START Runtime Version: python:3.12.mainlinev2.v43	Runtime Version ARN: arn:aws:lambda:us-east-1::runtime:36aeb19f3326e129d9f096dea0a3c6a9ca8dce2610e62d2b2060747602d863ae
+2026-10-18T23:34:22.179000+00:00 2026/10/18/[$LATEST]a11a726e1fcd447bb82182b43f0ba9b7 [0;93m2026-10-18 23:34:22.178413547 [W:onnxruntime:Default, telemetry_1ds.cc:600 operator()] Failed to persist telemetry device ID; using an in-memory identifier[m
+2026-10-18T23:34:22.253000+00:00 2026/10/18/[$LATEST]a11a726e1fcd447bb82182b43f0ba9b7 START RequestId: 0e217bcc-1da2-429b-8593-c036ec07d960 Version: $LATEST
+2026-10-18T23:34:26.824000+00:00 2026/10/18/[$LATEST]a11a726e1fcd447bb82182b43f0ba9b7 [INFO]	2026-10-18T23:34:26.823Z	0e217bcc-1da2-429b-8593-c036ec07d960	Found credentials in environment variables.
+2026-10-18T23:34:27.591000+00:00 2026/10/18/[$LATEST]a11a726e1fcd447bb82182b43f0ba9b7 [INFO]	2026-10-18T23:34:27.591Z	0e217bcc-1da2-429b-8593-c036ec07d960	POST https://search-vector-search-lesson-5gfarqzpvlwracjxqbt2tpfv5e.us-east-1.es.amazonaws.com:443/documents/_search [status:200 request:0.748s]
+2026-10-18T23:34:33.180000+00:00 2026/10/18/[$LATEST]a11a726e1fcd447bb82182b43f0ba9b7 END RequestId: 0e217bcc-1da2-429b-8593-c036ec07d960
+2026-10-18T23:34:33.180000+00:00 2026/10/18/[$LATEST]a11a726e1fcd447bb82182b43f0ba9b7 REPORT RequestId: 0e217bcc-1da2-429b-8593-c036ec07d960	Duration: 10925.83 ms	Billed Duration: 13159 ms	Memory Size: 512 MB	Max Memory Used: 285 MB	Init Duration: 2232.53 ms
