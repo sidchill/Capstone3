@@ -13,7 +13,7 @@ Component totals below cover the latest 80 log records (44 Claude calls).
 | Unspecified | 4 | 3,578 | 768 | $0.024479 |
 | **Total** | **44** | **33,680** | **7,940** | **$0.242154** |
 
-The files in `evidence/` document the project checks and deployment results:
+The files in evidence folder the project checks and deployment results:
 
 | Evidence | What it demonstrates |
 |---|---|
